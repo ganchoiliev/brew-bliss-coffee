@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 interface StickyCTAProps {
   isVisible: boolean;
@@ -10,19 +11,20 @@ const StickyCTA: React.FC<StickyCTAProps> = ({ isVisible }) => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div 
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          exit={{ y: 100 }}
-          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] w-full max-w-xl px-6"
+        <motion.div
+          initial={{ y: 150, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 150, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+          className="fixed bottom-8 left-0 right-0 z-[60] flex justify-center pointer-events-none"
         >
-          <div className="bg-white rounded-3xl p-4 flex items-center justify-between shadow-2xl border border-black/10">
-            <div className="pl-4">
-              <div className="text-black font-black text-lg tracking-tight">Ready to convert?</div>
-              <div className="text-black/50 text-xs font-bold uppercase tracking-widest">Limited spots available</div>
+          <div className="bg-[#18181B] pointer-events-auto border border-white/10 rounded-full p-2 pl-8 flex items-center gap-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+            <div className="hidden md:block">
+              <div className="text-white font-bold text-sm">Ready to scale?</div>
+              <div className="text-[#99A1AF] text-xs">High-converting spots filling fast</div>
             </div>
-            <button className="px-8 py-4 bg-[#BFF549] text-black font-black rounded-2xl hover:bg-black hover:text-white transition-all transform active:scale-95">
-              Secure Your Slot
+            <button className="px-8 py-3 bg-[#BFF549] text-black font-black rounded-full hover:bg-white transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2">
+              Get Started <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </motion.div>

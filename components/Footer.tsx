@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-white/5 text-[#99A1AF] text-sm">
-          <p>© 2024 VoltFlow Design Agency. All rights reserved.</p>
+          <p>© 2026 VoltFlow Design Agency. All rights reserved.</p>
           <p>Built with ❤️ for performance.</p>
         </div>
       </div>

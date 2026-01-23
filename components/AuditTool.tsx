@@ -28,9 +28,9 @@ const AuditTool: React.FC = () => {
 
   return (
     <section id="audit" className="relative py-40 bg-black overflow-hidden">
-      {/* Soft Volumetric Background - No harsh edges */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#BFF549]/10 rounded-full blur-[250px] pointer-events-none z-0" />
-      
+      {/* Optimized Volumetric Background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[#BFF549]/10 rounded-full blur-[180px] pointer-events-none z-0" />
+
       <div className="container relative z-10 mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-20">
@@ -51,18 +51,18 @@ const AuditTool: React.FC = () => {
 
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-[#BFF549]/20 to-transparent blur-3xl opacity-20 -z-10" />
-            
-            <form onSubmit={handleAudit} className="bg-white/[0.03] border border-white/10 p-2 md:p-3 rounded-[40px] flex flex-col md:flex-row gap-4 backdrop-blur-3xl shadow-2xl">
-              <input 
-                type="text" 
+
+            <form onSubmit={handleAudit} className="bg-white/[0.03] border border-white/10 hover:border-white/20 p-2 md:p-3 rounded-[40px] flex flex-col md:flex-row gap-4 backdrop-blur-3xl shadow-2xl transition-all duration-300">
+              <input
+                type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ex: My Shopify store landing page isn't converting traffic..."
-                className="flex-1 bg-transparent border-none rounded-[32px] px-8 py-6 text-white placeholder:text-white/20 focus:ring-0 outline-none text-xl"
+                className="flex-1 bg-transparent border-none rounded-[32px] px-8 py-6 text-white placeholder:text-white/30 focus:ring-0 outline-none text-xl focus:placeholder:text-white/50 transition-all"
               />
-              <button 
+              <button
                 disabled={isLoading}
-                className="px-10 py-6 bg-[#BFF549] text-black font-black rounded-[32px] flex items-center justify-center gap-3 hover:bg-white transition-all transform active:scale-95 disabled:opacity-50"
+                className="px-10 py-6 bg-[#BFF549] text-black font-black rounded-[32px] flex items-center justify-center gap-3 hover:bg-white hover:scale-105 transition-all duration-300 transform active:scale-95 disabled:opacity-50 disabled:hover:scale-100 shadow-lg hover:shadow-[0_0_40px_rgba(191,245,73,0.5)]"
               >
                 {isLoading ? (
                   <Loader2 className="w-7 h-7 animate-spin" />
@@ -75,7 +75,7 @@ const AuditTool: React.FC = () => {
 
           <AnimatePresence>
             {result && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 40 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -85,8 +85,8 @@ const AuditTool: React.FC = () => {
                   <div className="relative mb-6">
                     <svg className="w-40 h-40 transform -rotate-90">
                       <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-white/5" />
-                      <circle 
-                        cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="8" fill="transparent" 
+                      <circle
+                        cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="8" fill="transparent"
                         strokeDasharray={440}
                         strokeDashoffset={440 - (440 * result.score) / 100}
                         className="text-[#BFF549] transition-all duration-1000 ease-out"

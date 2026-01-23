@@ -1,125 +1,117 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap } from 'lucide-react';
+import { Zap, Check } from 'lucide-react';
 
 const pricingPlans = [
   {
-    name: "Totally Free",
-    subtitle: "No credit card required",
-    price: "0",
+    name: "Starter",
+    subtitle: "For emerging brands",
+    price: "4,500",
     features: [
-      "20k tool calls/mo",
-      "Community support"
+      "Custom Landing Page Design",
+      "Mobile-First Optimization",
+      "Basic SEO Implementation",
+      "5-Day Turnaround"
     ],
-    badge: "NO USAGE BASED",
     highlight: false,
-    hoverGradient: "from-[#1e3a8a] via-[#1e40af] to-[#0f172a]", // Deep Blue/Navy
-    accentColor: "text-blue-400"
+    color: "bg-blue-600"
   },
   {
-    name: "Ridiculously Cheap",
-    subtitle: "No need to talk to humans",
-    price: "29",
+    name: "Growth",
+    subtitle: "Most popular choice",
+    price: "8,500",
     features: [
-      "200k tool calls/mo",
-      "Email support"
+      "Full 5-Page Website",
+      "Advanced CRO Strategy",
+      "CMS Integration",
+      "Interactive Motion Effects",
+      "Copywriting Assistance"
     ],
-    badge: "$0.299/1K ADDITIONAL CALLS",
     highlight: true,
-    hoverGradient: "from-[#7c83ff] via-[#ff7c7c] to-[#ff4d00]", // Sunset/Orange
-    accentColor: "text-[#BFF549]"
+    color: "bg-[#BFF549]"
   },
   {
-    name: "Serious Business",
-    subtitle: "Maybe talk to humans?",
-    price: "229",
+    name: "Enterprise",
+    subtitle: "For market leaders",
+    price: "15,000+",
     features: [
-      "2M tool calls/mo",
-      "Slack support (1k+/month)"
+      "Complete Design System",
+      "Headless Architecture",
+      "A/B Testing Setup",
+      "Priority 24/7 Support",
+      "Monthly Conversion Audits"
     ],
-    badge: "$0.249/1K ADDITIONAL CALLS",
     highlight: false,
-    hoverGradient: "from-[#4c1d95] via-[#5b21b6] to-[#1e1b4b]", // Purple/Indigo
-    accentColor: "text-purple-400"
+    color: "bg-purple-600"
   }
 ];
 
 const Pricing: React.FC = () => {
   return (
-    <section id="pricing" className="py-32 bg-black overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <motion.h2 
+    <section id="pricing" className="py-32 bg-[#02040a] relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-white/[0.02] rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center mb-24">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-[56px] font-black tracking-tighter mb-6 uppercase"
+            className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-6 uppercase"
           >
-            PLANS THAT <span className="text-[#BFF549]">SCALE</span>
+            INVEST IN <span className="text-[#BFF549]">ROI</span>
           </motion.h2>
           <p className="text-[#99A1AF] text-xl font-light max-w-2xl mx-auto">
-            Choose a plan that fits your growth stage. Transparent pricing with no hidden surprises.
+            Clear, transparent pricing. No hidden fees. Just results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto items-center">
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              whileHover="hover"
-              className="group relative flex flex-col min-h-[600px] rounded-[40px] p-10 overflow-hidden border border-white/10 bg-white/[0.03] transition-all duration-500 hover:border-transparent"
+              whileHover={{ y: -10 }}
+              className={`relative flex flex-col p-10 rounded-[40px] border ${plan.highlight
+                  ? 'bg-white/[0.05] border-[#BFF549]/50 shadow-[0_0_50px_rgba(191,245,73,0.1)]'
+                  : 'bg-white/[0.02] border-white/5'
+                } backdrop-blur-xl transition-all duration-300`}
             >
-              {/* Dynamic Background Gradient - ONLY on hover */}
-              <div className={`absolute inset-0 z-0 bg-gradient-to-b ${plan.hoverGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
-
-              <div className="relative z-10 flex flex-col h-full text-white">
-                <div className="mb-12">
-                  <h3 className="text-4xl font-bold mb-2">
-                    {plan.name}
-                  </h3>
-                  <p className="text-lg font-medium text-[#99A1AF] group-hover:text-white/80 transition-colors duration-500">
-                    {plan.subtitle}
-                  </p>
+              {plan.highlight && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-[#BFF549] text-black text-xs font-bold uppercase tracking-widest rounded-full">
+                  Recommended
                 </div>
+              )}
 
-                <div className="space-y-6 mb-12 flex-1">
-                  {plan.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-4">
-                      <Zap className={`w-5 h-5 shrink-0 transition-colors duration-500 ${plan.highlight ? 'text-[#BFF549]' : plan.accentColor} group-hover:text-white`} />
-                      <span className="text-lg font-medium group-hover:text-white transition-colors duration-500">{feature}</span>
-                    </div>
-                  ))}
-                  
-                  <div className="inline-block px-4 py-2 rounded-xl text-[10px] font-black tracking-widest uppercase mt-4 transition-all duration-500 bg-white/10 text-[#99A1AF] group-hover:bg-white/20 group-hover:text-white backdrop-blur-md">
-                    {plan.badge}
-                  </div>
-                </div>
-
-                <div className="mt-auto">
-                  <div className="flex items-baseline gap-2 mb-8">
-                    <span className="text-6xl font-black">${plan.price}</span>
-                    <span className="text-xl text-[#99A1AF] group-hover:text-white/60 transition-colors duration-500">/ month</span>
-                  </div>
-                  
-                  <button className={`w-full py-5 rounded-2xl font-black text-lg transition-all transform active:scale-95 ${
-                    plan.highlight 
-                    ? 'bg-[#BFF549] text-black group-hover:bg-white group-hover:text-black' 
-                    : 'bg-white/5 text-white border border-white/10 group-hover:bg-white group-hover:text-black group-hover:border-transparent'
-                  }`}>
-                    Get Started
-                  </button>
-                </div>
+              <div className="mb-10">
+                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                <p className="text-[#99A1AF] text-sm">{plan.subtitle}</p>
               </div>
 
-              {/* Unique Glow Accent on Hover */}
-              <div className={`absolute -top-24 -right-24 w-64 h-64 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none rounded-full blur-[100px] ${
-                index === 0 ? 'bg-blue-400' : index === 1 ? 'bg-[#BFF549]' : 'bg-purple-400'
-              }`} />
+              <div className="mb-10 flex items-baseline gap-1">
+                <span className="text-sm align-top text-[#99A1AF]">$</span>
+                <span className="text-5xl font-black tracking-tight">{plan.price}</span>
+              </div>
+
+              <div className="space-y-5 mb-12 flex-1">
+                {plan.features.map((feature, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <div className={`mt-1 w-5 h-5 rounded-full flex items-center justify-center ${plan.highlight ? 'bg-[#BFF549] text-black' : 'bg-white/10 text-white'}`}>
+                      <Check className="w-3 h-3" strokeWidth={3} />
+                    </div>
+                    <span className="text-white/80 font-light">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className={`w-full py-5 rounded-2xl font-bold text-lg transition-all transform active:scale-95 ${plan.highlight
+                  ? 'bg-[#BFF549] text-black hover:bg-white'
+                  : 'bg-white/10 text-white hover:bg-white hover:text-black'
+                }`}>
+                Choose {plan.name}
+              </button>
             </motion.div>
           ))}
         </div>
