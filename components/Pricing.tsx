@@ -61,7 +61,7 @@ const Pricing: React.FC = () => {
           >
             INVEST IN <span className="text-[#BFF549]">ROI</span>
           </motion.h2>
-          <p className="text-[#99A1AF] text-xl font-light max-w-2xl mx-auto">
+          <p className="text-[#99A1AF] text-xl font-light max-w-2xl mx-auto px-6 md:px-0">
             Clear, transparent pricing. No hidden fees. Just results.
           </p>
         </div>
@@ -75,8 +75,8 @@ const Pricing: React.FC = () => {
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10 }}
               className={`relative flex flex-col p-10 rounded-[40px] border ${plan.highlight
-                  ? 'bg-white/[0.05] border-[#BFF549]/50 shadow-[0_0_50px_rgba(191,245,73,0.1)]'
-                  : 'bg-white/[0.02] border-white/5'
+                ? 'bg-white/[0.05] border-[#BFF549]/50 shadow-[0_0_50px_rgba(191,245,73,0.1)]'
+                : 'bg-white/[0.02] border-white/5'
                 } backdrop-blur-xl transition-all duration-300`}
             >
               {plan.highlight && (
@@ -107,8 +107,8 @@ const Pricing: React.FC = () => {
               </div>
 
               <button className={`w-full py-5 rounded-2xl font-bold text-lg transition-all transform active:scale-95 ${plan.highlight
-                  ? 'bg-[#BFF549] text-black hover:bg-white'
-                  : 'bg-white/10 text-white hover:bg-white hover:text-black'
+                ? 'bg-[#BFF549] text-black hover:bg-white'
+                : 'bg-white/10 text-white hover:bg-white hover:text-black'
                 }`}>
                 Choose {plan.name}
               </button>

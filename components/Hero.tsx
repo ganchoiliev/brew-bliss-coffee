@@ -132,16 +132,16 @@ const Hero: React.FC = () => {
             Elevating digital presence through scientific design. We don't just build sites; we engineer visual identities that convert.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <div className="relative group">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="relative group w-auto">
               <div className="absolute inset-0 bg-[#BFF549] rounded-full blur-[20px] opacity-40 group-hover:opacity-60 transition-all duration-300 transform group-hover:scale-110" />
-              <button className="relative px-12 py-6 bg-[#BFF549] text-black font-black text-xl rounded-full overflow-hidden transition-all hover:scale-[1.02] active:scale-95 z-10 flex items-center gap-3">
+              <button className="relative px-12 py-6 bg-[#BFF549] text-black font-black text-xl rounded-full overflow-hidden transition-all hover:scale-[1.02] active:scale-95 z-10 flex items-center gap-3 whitespace-nowrap">
                 Start Project
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
-            <button className="px-10 py-6 text-white font-bold text-lg rounded-full border border-white/10 hover:bg-white/5 transition-all flex items-center gap-3 backdrop-blur-sm">
+            <button className="px-10 py-6 text-white font-bold text-lg rounded-full border border-white/10 hover:bg-white/5 transition-all flex items-center gap-3 backdrop-blur-sm whitespace-nowrap">
               View Our Work
             </button>
           </div>

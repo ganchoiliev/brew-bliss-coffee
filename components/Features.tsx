@@ -104,7 +104,7 @@ const Features: React.FC = () => {
         </div>
 
         {/* Bottom Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6">
           <motion.div whileHover={{ y: -5 }} className="bg-white/[0.02] border border-white/5 rounded-3xl p-6 flex items-center gap-4">
             <div className="p-3 bg-white/5 rounded-xl"><Layers className="w-6 h-6 text-[#BFF549]" /></div>
             <div><h4 className="font-bold">Brand Authority</h4><p className="text-xs text-gray-500">Premium Aesthetics</p></div>
