@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, userId, onLoginClick, onDas
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            {['Our Beans', 'Brewing', 'Menu'].map((item) => (
+            {['Our Beans', 'Recipes', 'Brewing', 'Menu'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(' ', '-')}`}
@@ -102,7 +102,7 @@ const Navbar: React.FC<NavbarProps> = ({ isScrolled, userId, onLoginClick, onDas
             className="fixed inset-0 z-40 bg-[#1a0a10]/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
-              {['Our Beans', 'Brewing', 'Menu'].map((item, index) => (
+              {['Our Beans', 'Recipes', 'Brewing', 'Menu'].map((item, index) => (
                 <motion.a
                   key={item}
                   initial={{ opacity: 0, y: 20 }}

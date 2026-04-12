@@ -8,6 +8,7 @@ import Features from './components/Features';
 import Testimonials from './components/Testimonials';
 import AuditTool from './components/AuditTool';
 import Pricing from './components/Pricing';
+import Recipes from './components/Recipes';
 import CardScannerSection from './components/CardScannerSection';
 import AuthForm from './components/AuthForm';
 import Dashboard from './components/Dashboard';
@@ -77,6 +78,7 @@ const App: React.FC = () => {
         <Hero />
         <SocialProof />
         <Features />
+        <Recipes />
         <AuditTool />
         <Pricing />
         <Testimonials />
