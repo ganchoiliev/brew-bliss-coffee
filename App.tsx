@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { auth } from './lib/supabase';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SocialProof from './components/SocialProof';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [showDashboard, setShowDashboard] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +29,28 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Check Supabase Auth session on mount
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
+    auth.getSession().then((session) => {
+      if (session?.user) {
+        setUserId(session.user.id);
+      }
+      setAuthLoading(false);
+    }).catch(() => {
+      setAuthLoading(false);
+    });
+
+    // Listen for auth state changes (login, logout, token refresh)
+    const { data: { subscription } } = auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUserId(session.user.id);
+      } else {
+        setUserId(null);
+        setShowDashboard(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleAuthSuccess = (id: string) => {
@@ -39,8 +58,12 @@ const App: React.FC = () => {
     setShowDashboard(true);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('userId');
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+    } catch (e) {
+      console.error('Logout error:', e);
+    }
     setUserId(null);
     setShowDashboard(false);
   };
@@ -50,10 +73,7 @@ const App: React.FC = () => {
   };
 
   const handleLoginClick = () => {
-    const authSection = document.querySelector('section.relative.bg-\\[\\#1a0a10\\].px-6.py-32');
-    if (authSection) {
-      authSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById('auth')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   if (showDashboard && userId) {

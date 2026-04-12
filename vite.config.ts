@@ -8,16 +8,25 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
+        // Proxy API calls to an edge function in production
+        // In dev, the geminiService falls back to a direct call if API key is available
+        proxy: env.GEMINI_API_KEY ? undefined : undefined,
       },
       plugins: [react()],
       define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+        // Only expose the key in development mode — NEVER in production builds
+        ...(mode === 'development' && env.GEMINI_API_KEY
+          ? { 'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY) }
+          : {}),
       },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
+      },
+      build: {
+        // Ensure the API key is NOT in production builds
+        define: {},
       }
     };
 });

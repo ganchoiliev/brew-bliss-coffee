@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, User, Globe, ArrowRight, Coffee, Lock } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { auth } from '../lib/supabase';
 
 interface AuthFormProps {
     onAuthSuccess: (userId: string) => void;
@@ -11,7 +11,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    const [website, setWebsite] = useState('');
+    const [favoriteCoffee, setFavoriteCoffee] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [isLoginMode, setIsLoginMode] = useState(false);
@@ -23,44 +23,25 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
 
         try {
             if (isLoginMode) {
-                const { data: user, error: loginError } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('email', email)
-                    .eq('password', password)
-                    .single();
-
-                if (loginError || !user) {
-                    throw new Error('Invalid email or password');
+                // Supabase Auth — secure password-based login (hashed, JWT session)
+                const data = await auth.signIn(email, password);
+                if (data.user) {
+                    onAuthSuccess(data.user.id);
                 }
-
-                localStorage.setItem('userId', user.id);
-                onAuthSuccess(user.id);
             } else {
-                const { data: existingUser } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('email', email)
-                    .single();
-
-                if (existingUser) {
-                    throw new Error('An account with this email already exists. Please login instead.');
+                // Supabase Auth — secure signup with hashed password
+                if (password.length < 6) {
+                    throw new Error('Password must be at least 6 characters');
                 }
 
-                const { data: newUser, error: insertError } = await supabase
-                    .from('users')
-                    .insert([{ email, password, name, website }])
-                    .select()
-                    .single();
+                const data = await auth.signUp(email, password, {
+                    name,
+                    favorite_coffee: favoriteCoffee || undefined,
+                });
 
-                if (insertError) throw insertError;
-
-                await supabase
-                    .from('user_dashboard')
-                    .insert([{ user_id: newUser.id }]);
-
-                localStorage.setItem('userId', newUser.id);
-                onAuthSuccess(newUser.id);
+                if (data.user) {
+                    onAuthSuccess(data.user.id);
+                }
             }
         } catch (err: any) {
             setError(err.message || 'An error occurred');
@@ -70,7 +51,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
     };
 
     return (
-        <section className="relative bg-[#1a0a10] px-6 py-32">
+        <section id="auth" className="relative bg-[#1a0a10] px-6 py-32">
             {/* Background Effects */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -102,7 +83,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                         <Coffee className="w-10 h-10 text-[#1a0a10]" />
                     </motion.div>
 
-                    <h2 className="text-5xl font-black mb-4 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif' }}>
+                    <h2 className="text-5xl font-black mb-4 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
                         {isLoginMode ? 'Welcome Back' : 'Join the Club'}
                     </h2>
                     <p className="text-xl text-[#C9A0A0]">
@@ -139,7 +120,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 transition-all"
+                                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 focus-visible:ring-2 focus-visible:ring-[#F472B6] transition-all"
                                 placeholder="you@example.com"
                             />
                         </div>
@@ -157,10 +138,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 transition-all"
+                                minLength={6}
+                                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 focus-visible:ring-2 focus-visible:ring-[#F472B6] transition-all"
                                 placeholder="••••••••"
                             />
                         </div>
+                        {!isLoginMode && (
+                            <p className="mt-1 text-xs text-[#6b4f4f]">Minimum 6 characters</p>
+                        )}
                     </div>
 
                     {/* Name Input - Only show in signup mode */}
@@ -176,14 +161,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 transition-all"
+                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 focus-visible:ring-2 focus-visible:ring-[#F472B6] transition-all"
                                     placeholder="Coffee Lover"
                                 />
                             </div>
                         </div>
                     )}
 
-                    {/* Website Input - Only show in signup mode */}
+                    {/* Favorite Coffee Input - Only show in signup mode */}
                     {!isLoginMode && (
                         <div className="mb-8">
                             <label className="block text-sm font-bold text-gray-300 mb-2 uppercase tracking-wider">
@@ -193,9 +178,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                 <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#F472B6] transition-colors" />
                                 <input
                                     type="text"
-                                    value={website}
-                                    onChange={(e) => setWebsite(e.target.value)}
-                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 transition-all"
+                                    value={favoriteCoffee}
+                                    onChange={(e) => setFavoriteCoffee(e.target.value)}
+                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#F472B6] focus:ring-2 focus:ring-[#F472B6]/20 focus-visible:ring-2 focus-visible:ring-[#F472B6] transition-all"
                                     placeholder="Ethiopian Yirgacheffe"
                                 />
                             </div>
@@ -206,7 +191,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="group relative w-full py-5 bg-gradient-to-r from-[#F472B6] to-[#FB7185] text-[#1a0a10] font-black text-lg rounded-xl overflow-hidden transition-all hover:shadow-[0_0_60px_rgba(244,114,182,0.5)] hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="group relative w-full py-5 bg-gradient-to-r from-[#F472B6] to-[#FB7185] text-[#1a0a10] font-black text-lg rounded-xl overflow-hidden transition-all hover:shadow-[0_0_60px_rgba(244,114,182,0.5)] hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a0a10]"
                     >
                         <span className="relative z-10 flex items-center justify-center gap-3">
                             {isLoading ? 'Brewing...' : (isLoginMode ? 'Sign In' : 'Start My Journey')}
@@ -222,8 +207,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                 New here?{' '}
                                 <button
                                     type="button"
-                                    onClick={() => setIsLoginMode(false)}
-                                    className="text-[#F472B6] font-bold hover:underline"
+                                    onClick={() => { setIsLoginMode(false); setError(''); }}
+                                    className="text-[#F472B6] font-bold hover:underline focus-visible:ring-2 focus-visible:ring-[#F472B6] rounded"
                                 >
                                     Create an account
                                 </button>
@@ -233,8 +218,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ onAuthSuccess }) => {
                                 Already a member?{' '}
                                 <button
                                     type="button"
-                                    onClick={() => setIsLoginMode(true)}
-                                    className="text-[#F472B6] font-bold hover:underline"
+                                    onClick={() => { setIsLoginMode(true); setError(''); }}
+                                    className="text-[#F472B6] font-bold hover:underline focus-visible:ring-2 focus-visible:ring-[#F472B6] rounded"
                                 >
                                     Sign In
                                 </button>

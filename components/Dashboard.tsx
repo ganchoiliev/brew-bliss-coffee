@@ -78,7 +78,6 @@ const Dashboard: React.FC<DashboardProps> = ({ userId, onLogout }) => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('userId');
         onLogout();
     };
 
