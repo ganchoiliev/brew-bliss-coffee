@@ -1,21 +1,18 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Refactored to follow @google/genai initialization and model usage guidelines
 export const analyzeConversion = async (urlOrDescription: string) => {
-  // Initialize with process.env.API_KEY directly inside the function
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  
+
   const prompt = `
-    Act as a world-class conversion rate optimization (CRO) expert. 
-    Analyze the following website context or URL: "${urlOrDescription}".
-    Provide a professional conversion critique in JSON format.
-    Include a conversion score (0-100), a short summary critique, and 3 actionable recommendations.
+    Act as a world-class coffee sommelier and flavor expert.
+    Analyze the following coffee preference or description: "${urlOrDescription}".
+    Based on this, recommend the perfect coffee blend in JSON format.
+    Include a match score (0-100), a short tasting profile critique, and 3 specific bean/blend recommendations.
   `;
 
   try {
     const response = await ai.models.generateContent({
-      // Using gemini-3-pro-preview for complex reasoning and expert-level analysis
       model: "gemini-3-pro-preview",
       contents: prompt,
       config: {
@@ -35,7 +32,6 @@ export const analyzeConversion = async (urlOrDescription: string) => {
       }
     });
 
-    // Extract text from response using the .text property (not a method)
     const jsonStr = response.text?.trim() || "{}";
     return JSON.parse(jsonStr);
   } catch (error) {

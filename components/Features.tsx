@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { Layout, Target, MousePointer2, Layers, BarChart3, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
+import { Flame, Droplets, Bean, Layers, ThermometerSun, ShieldCheck, Coffee, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Features: React.FC = () => {
   return (
-    <section id="expertise" className="py-32 bg-[#02040a] relative overflow-hidden overflow-x-hidden">
+    <section id="our-beans" className="py-32 bg-[#1a0a10] relative overflow-hidden overflow-x-hidden">
       {/* Background Gradients */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#BFF549]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#F472B6]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#FB7185]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
@@ -16,27 +16,28 @@ const Features: React.FC = () => {
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              className="inline-block text-[#BFF549] font-bold tracking-widest uppercase mb-4 text-sm"
+              className="inline-block text-[#F472B6] font-bold tracking-widest uppercase mb-4 text-sm"
             >
-              Our Expertise
+              Our Craft
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-7xl font-black tracking-tighter text-white"
+              style={{ fontFamily: 'Playfair Display, serif' }}
             >
-              SCIENTIFIC <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">PRECISION.</span>
+              ARTISAN <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">PERFECTION.</span>
             </motion.h2>
           </div>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-[#99A1AF] max-w-lg font-light leading-relaxed"
+            className="text-xl text-[#C9A0A0] max-w-lg font-light leading-relaxed"
           >
-            We adhere to a rigorous, data-backed design methodology. No guesswork, just results.
+            Every cup tells a story. From bean to brew, we obsess over every detail to deliver an unforgettable experience.
           </motion.p>
         </div>
 
@@ -46,31 +47,32 @@ const Features: React.FC = () => {
             whileHover={{ scale: 0.98 }}
             className="md:col-span-4 md:row-span-2 bg-gradient-to-br from-white/[0.08] to-transparent border border-white/5 rounded-[40px] p-10 flex flex-col justify-between group overflow-hidden relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#BFF549]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F472B6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
             <div className="relative z-10">
-              <div className="w-16 h-16 bg-[#BFF549] rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-12 transition-transform duration-500">
-                <BarChart3 className="w-8 h-8 text-black" />
+              <div className="w-16 h-16 bg-[#F472B6] rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-12 transition-transform duration-500">
+                <Flame className="w-8 h-8 text-[#1a0a10]" />
               </div>
-              <h3 className="text-4xl font-bold mb-6">Velocity-First <br />Architecture</h3>
-              <p className="text-lg text-[#99A1AF] max-w-md">
-                We engineer sites that load in sub-100ms. Speed isn't just a feature; it's the foundation of conversion. Google loves it, users demand it.
+              <h3 className="text-4xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>Small-Batch <br />Roasting</h3>
+              <p className="text-lg text-[#C9A0A0] max-w-md">
+                Each batch is roasted to perfection in small quantities, ensuring peak flavor and aroma. Our master roasters bring out the unique character of every origin.
               </p>
             </div>
 
-            <div className="relative mt-10 h-64 bg-black/40 rounded-3xl border border-white/5 overflow-hidden">
-              {/* Mock Graph Animation */}
+            <div className="relative mt-10 h-64 bg-[#0f0509]/60 rounded-3xl border border-[#F472B6]/5 overflow-hidden">
+              {/* Mock Roast Profile Chart */}
               <div className="absolute bottom-0 left-0 right-0 h-full flex items-end gap-2 px-8 pb-8">
-                {[40, 65, 55, 80, 70, 95, 100].map((height, i) => (
+                {[30, 50, 65, 85, 95, 80, 60].map((height, i) => (
                   <motion.div
                     key={i}
                     initial={{ height: 0 }}
                     whileInView={{ height: `${height}%` }}
                     transition={{ delay: i * 0.1, duration: 1, ease: "circOut" }}
-                    className="flex-1 bg-gradient-to-t from-[#BFF549]/20 to-[#BFF549] rounded-t-lg opacity-80"
+                    className="flex-1 bg-gradient-to-t from-[#F472B6]/20 to-[#F472B6] rounded-t-lg opacity-80"
                   />
                 ))}
               </div>
+              <div className="absolute top-4 left-8 text-xs text-[#C9A0A0] uppercase tracking-widest font-bold">Roast Profile</div>
             </div>
           </motion.div>
 
@@ -80,12 +82,12 @@ const Features: React.FC = () => {
             className="md:col-span-2 md:row-span-1 bg-white/[0.03] border border-white/5 rounded-[40px] p-8 flex flex-col justify-center relative group overflow-hidden"
           >
             <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-300">
-              <ArrowUpRight className="w-8 h-8 text-[#BFF549]" />
+              <ArrowUpRight className="w-8 h-8 text-[#F472B6]" />
             </div>
-            <Layout className="w-10 h-10 text-white mb-6" />
-            <h3 className="text-2xl font-bold mb-3">Neuro-Design</h3>
-            <p className="text-sm text-[#99A1AF]">
-              Eye-tracking data guides every pixel placement.
+            <Droplets className="w-10 h-10 text-[#F472B6] mb-6" />
+            <h3 className="text-2xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>Pour-Over Precision</h3>
+            <p className="text-sm text-[#C9A0A0]">
+              Water temperature, grind size, and bloom time perfected for each origin.
             </p>
           </motion.div>
 
@@ -94,11 +96,11 @@ const Features: React.FC = () => {
             whileHover={{ scale: 0.98 }}
             className="md:col-span-2 md:row-span-1 bg-white/[0.03] border border-white/5 rounded-[40px] p-8 flex flex-col justify-center relative group overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <Target className="w-10 h-10 text-purple-400 mb-6" />
-            <h3 className="text-2xl font-bold mb-3">Conversion CRO</h3>
-            <p className="text-sm text-[#99A1AF]">
-              Frictionless funnels that turn visitors into revenue.
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#FB7185]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Bean className="w-10 h-10 text-[#FB7185] mb-6" />
+            <h3 className="text-2xl font-bold mb-3" style={{ fontFamily: 'Playfair Display, serif' }}>Ethical Sourcing</h3>
+            <p className="text-sm text-[#C9A0A0]">
+              Direct trade with farmers. Fair wages, sustainable practices, incredible beans.
             </p>
           </motion.div>
         </div>
@@ -106,16 +108,16 @@ const Features: React.FC = () => {
         {/* Bottom Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-6">
           <motion.div whileHover={{ y: -5 }} className="bg-white/[0.02] border border-white/5 rounded-3xl p-6 flex items-center gap-4">
-            <div className="p-3 bg-white/5 rounded-xl"><Layers className="w-6 h-6 text-[#BFF549]" /></div>
-            <div><h4 className="font-bold">Brand Authority</h4><p className="text-xs text-gray-500">Premium Aesthetics</p></div>
+            <div className="p-3 bg-[#F472B6]/10 rounded-xl"><ThermometerSun className="w-6 h-6 text-[#F472B6]" /></div>
+            <div><h4 className="font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>Fresh Roasted</h4><p className="text-xs text-[#6b4f4f]">Roasted to order</p></div>
           </motion.div>
           <motion.div whileHover={{ y: -5 }} className="bg-white/[0.02] border border-white/5 rounded-3xl p-6 flex items-center gap-4">
-            <div className="p-3 bg-white/5 rounded-xl"><MousePointer2 className="w-6 h-6 text-blue-400" /></div>
-            <div><h4 className="font-bold">Behavioral Triggers</h4><p className="text-xs text-gray-500">Intent Response</p></div>
+            <div className="p-3 bg-[#FB7185]/10 rounded-xl"><Layers className="w-6 h-6 text-[#FB7185]" /></div>
+            <div><h4 className="font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>Tasting Notes</h4><p className="text-xs text-[#6b4f4f]">Complex flavors</p></div>
           </motion.div>
           <motion.div whileHover={{ y: -5 }} className="bg-white/[0.02] border border-white/5 rounded-3xl p-6 flex items-center gap-4">
-            <div className="p-3 bg-white/5 rounded-xl"><Zap className="w-6 h-6 text-yellow-400" /></div>
-            <div><h4 className="font-bold">Instant Iteration</h4><p className="text-xs text-gray-500">Rapid Testing</p></div>
+            <div className="p-3 bg-[#FBCFE8]/10 rounded-xl"><Coffee className="w-6 h-6 text-[#FBCFE8]" /></div>
+            <div><h4 className="font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>Brewing Guides</h4><p className="text-xs text-[#6b4f4f]">Expert tips</p></div>
           </motion.div>
         </div>
       </div>

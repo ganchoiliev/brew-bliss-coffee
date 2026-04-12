@@ -27,7 +27,6 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
@@ -36,7 +35,7 @@ const App: React.FC = () => {
 
   const handleAuthSuccess = (id: string) => {
     setUserId(id);
-    setShowDashboard(true); // Automatically show dashboard after login
+    setShowDashboard(true);
   };
 
   const handleLogout = () => {
@@ -50,14 +49,12 @@ const App: React.FC = () => {
   };
 
   const handleLoginClick = () => {
-    // Scroll to auth form section
-    const authSection = document.querySelector('section.relative.bg-black.px-6.py-32');
+    const authSection = document.querySelector('section.relative.bg-\\[\\#1a0a10\\].px-6.py-32');
     if (authSection) {
       authSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // If user wants to see dashboard
   if (showDashboard && userId) {
     return (
       <>
@@ -68,7 +65,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#02040a] text-white selection:bg-[#BFF549] selection:text-black font-sans overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#1a0a10] text-white selection:bg-[#F472B6] selection:text-[#1a0a10] font-sans overflow-x-hidden">
       <Navbar
         isScrolled={isScrolled}
         userId={userId}
@@ -85,7 +82,6 @@ const App: React.FC = () => {
         <Testimonials />
         <CardScannerSection />
 
-        {/* Auth Form Section - Only show if not logged in */}
         {!userId && <AuthForm onAuthSuccess={handleAuthSuccess} />}
       </main>
 

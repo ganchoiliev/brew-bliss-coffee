@@ -1,12 +1,12 @@
 import React from 'react';
-import { IoHomeOutline, IoVideocamOutline, IoCameraOutline, IoShareSocialOutline, IoHeartOutline } from 'react-icons/io5';
+import { IoHomeOutline, IoCafeOutline, IoLeafOutline, IoHeartOutline, IoGiftOutline } from 'react-icons/io5';
 
 const menuItems = [
-    { title: 'Home', icon: <IoHomeOutline />, gradientFrom: '#a955ff', gradientTo: '#ea51ff' },
-    { title: 'Video', icon: <IoVideocamOutline />, gradientFrom: '#56CCF2', gradientTo: '#2F80ED' },
-    { title: 'Photo', icon: <IoCameraOutline />, gradientFrom: '#FF9966', gradientTo: '#FF5E62' },
-    { title: 'Share', icon: <IoShareSocialOutline />, gradientFrom: '#80FF72', gradientTo: '#7EE8FA' },
-    { title: 'Tym', icon: <IoHeartOutline />, gradientFrom: '#ffa9c6', gradientTo: '#f434e2' }
+    { title: 'Home', icon: <IoHomeOutline />, gradientFrom: '#F472B6', gradientTo: '#EC4899' },
+    { title: 'Beans', icon: <IoCafeOutline />, gradientFrom: '#FB7185', gradientTo: '#F43F5E' },
+    { title: 'Origin', icon: <IoLeafOutline />, gradientFrom: '#FBCFE8', gradientTo: '#F472B6' },
+    { title: 'Gift', icon: <IoGiftOutline />, gradientFrom: '#FDA4AF', gradientTo: '#FB7185' },
+    { title: 'Love', icon: <IoHeartOutline />, gradientFrom: '#F9A8D4', gradientTo: '#EC4899' }
 ];
 
 export default function GradientMenuInline() {
