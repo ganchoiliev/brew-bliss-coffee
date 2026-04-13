@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Coffee, Clock, Flame, ChefHat, X, Sparkles } from 'lucide-react';
+import { Clock, Flame, ChefHat, X, Sparkles } from 'lucide-react';
+import RecipeSectionHero from './recipes/RecipeSectionHero';
+import CoffeeBeanDivider from './recipes/CoffeeBeanDivider';
 import RecipeGrid from './recipes/RecipeGrid';
 import type { RecipeCardData } from './recipes/RecipeCard';
 
@@ -14,7 +16,7 @@ const recipes = [
     difficulty: 'Easy' as const,
     time: '5 min',
     color: '#F472B6',
-    videoUrl: '/recipes/classic-latte.mp4',
+    videoName: 'classic-latte',
     ingredients: [
       '2 shots espresso (18 g fine ground)',
       '8 oz (240 ml) whole milk',
@@ -36,7 +38,7 @@ const recipes = [
     difficulty: 'Medium' as const,
     time: '5 min',
     color: '#FB7185',
-    videoUrl: '/recipes/cappuccino.mp4',
+    videoName: 'cappuccino',
     ingredients: [
       '1 double shot espresso (18 g fine ground)',
       '4 oz (120 ml) whole milk (3.5% fat)',
@@ -58,7 +60,7 @@ const recipes = [
     difficulty: 'Easy' as const,
     time: '7 min',
     color: '#A855F7',
-    videoUrl: '/recipes/cafe-mocha.mp4',
+    videoName: 'cafe-mocha',
     ingredients: [
       '2 shots espresso (18 g fine ground)',
       '1 tbsp unsweetened cocoa powder',
@@ -82,7 +84,7 @@ const recipes = [
     difficulty: 'Medium' as const,
     time: '10 min',
     color: '#F59E0B',
-    videoUrl: '/recipes/caramel-macchiato.mp4',
+    videoName: 'caramel-macchiato',
     ingredients: [
       '2 shots espresso',
       '2 tbsp caramel sauce (divided)',
@@ -105,7 +107,7 @@ const recipes = [
     difficulty: 'Easy' as const,
     time: '3 min',
     color: '#EC4899',
-    videoUrl: '/recipes/affogato.mp4',
+    videoName: 'affogato',
     ingredients: [
       '2 scoops vanilla gelato or ice cream',
       '1 shot freshly brewed espresso (hot)',
@@ -128,7 +130,7 @@ const recipes = [
     difficulty: 'Easy' as const,
     time: '5 min',
     color: '#06B6D4',
-    videoUrl: '/recipes/iced-vanilla-latte.mp4',
+    videoName: 'iced-vanilla-latte',
     ingredients: [
       '2 shots espresso (cooled slightly)',
       '2 tbsp vanilla syrup',
@@ -151,7 +153,7 @@ const recipes = [
     difficulty: 'Advanced' as const,
     time: '5 min',
     color: '#8B5CF6',
-    videoUrl: '/recipes/flat-white.mp4',
+    videoName: 'flat-white',
     ingredients: [
       '1 double ristretto (18-19 g fine ground)',
       '5 oz (150 ml) cold whole milk',
@@ -173,7 +175,7 @@ const recipes = [
     difficulty: 'Medium' as const,
     time: '8 min',
     color: '#F472B6',
-    videoUrl: '/recipes/classic-latte.mp4', // shares latte video
+    videoName: 'classic-latte', // shares latte video
     ingredients: [
       '1 double shot espresso',
       '6 oz (180 ml) oat or whole milk',
@@ -200,7 +202,7 @@ const cardData: RecipeCardData[] = recipes.map((r) => ({
   difficulty: r.difficulty,
   time: r.time,
   ingredientCount: r.ingredients.length,
-  videoUrl: r.videoUrl,
+  videoName: r.videoName,
   color: r.color,
 }));
 
@@ -366,49 +368,24 @@ const Recipes: React.FC = () => {
   const selectedRecipe = selectedId ? recipes.find((r) => r.id === selectedId) : null;
 
   return (
-    <section id="recipes" className="py-32 bg-[#1a0a10] relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-20 left-0 w-[600px] h-[600px] bg-[#F472B6]/[0.03] rounded-full blur-[180px] pointer-events-none" />
-      <div className="absolute bottom-20 right-0 w-[500px] h-[500px] bg-[#8B5CF6]/[0.03] rounded-full blur-[180px] pointer-events-none" />
+    <section id="recipes" className="bg-[#1a0a10] relative overflow-hidden">
+      {/* Cinematic hero banner */}
+      <RecipeSectionHero />
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 text-[#F472B6] font-bold tracking-widest uppercase mb-5 text-sm px-4 py-2 rounded-full border border-[#F472B6]/20 bg-[#F472B6]/5"
-          >
-            <Coffee className="w-4 h-4" />
-            Craft At Home
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08 }}
-            className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-5"
-            style={{ fontFamily: 'Playfair Display, serif' }}
-          >
-            PREMIUM <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F472B6] to-[#FB7185]">RECIPES</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.16 }}
-            className="text-lg text-[#a09080] max-w-2xl mx-auto font-light leading-relaxed"
-          >
-            Barista-grade recipes you can recreate at home. Each card features a looping video preview \u2014 tap to unlock the full experience.
-          </motion.p>
-        </div>
+      {/* Coffee bean divider */}
+      <CoffeeBeanDivider />
 
+      {/* Card grid */}
+      <div className="container mx-auto px-6 pb-32 relative z-10">
         <RecipeGrid
           recipes={cardData}
           onSelectRecipe={(card) => setSelectedId(card.id)}
         />
       </div>
+
+      {/* Background accents */}
+      <div className="absolute top-[40%] left-0 w-[600px] h-[600px] bg-[#F472B6]/[0.02] rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute bottom-20 right-0 w-[500px] h-[500px] bg-[#8B5CF6]/[0.02] rounded-full blur-[180px] pointer-events-none" />
 
       {/* Recipe Modal */}
       <AnimatePresence>

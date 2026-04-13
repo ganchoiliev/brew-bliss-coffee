@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Coffee } from 'lucide-react';
 import RecipeCard from './RecipeCard';
 import type { RecipeCardData } from './RecipeCard';
 
@@ -22,8 +21,8 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, onSelectRecipe }) => {
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.25 }}
-        className="flex items-center justify-center gap-3 mb-14 flex-wrap"
+        transition={{ delay: 0.15 }}
+        className="flex items-center justify-center gap-3 mb-12 flex-wrap"
       >
         {difficulties.map((d) => (
           <button
@@ -40,11 +39,8 @@ const RecipeGrid: React.FC<RecipeGridProps> = ({ recipes, onSelectRecipe }) => {
         ))}
       </motion.div>
 
-      {/* Card grid — no perspective, flat CSS grid */}
-      <motion.div
-        layout
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-      >
+      {/* Card grid */}
+      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <AnimatePresence mode="popLayout">
           {filtered.map((recipe, i) => (
             <motion.div
