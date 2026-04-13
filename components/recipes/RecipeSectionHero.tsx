@@ -25,7 +25,7 @@ const RecipeSectionHero: React.FC = () => {
       >
         {prefersReduced ? (
           <img
-            src="/videos/posters/hero-video.jpg"
+            src="/videos/posters/recipes-hero.jpg"
             alt=""
             className="w-full h-full object-cover"
             style={{ filter: 'brightness(0.6) saturate(1.1)' }}
@@ -37,11 +37,11 @@ const RecipeSectionHero: React.FC = () => {
             loop
             playsInline
             preload="metadata"
-            poster="/videos/posters/hero-video.jpg"
+            poster="/videos/posters/recipes-hero.jpg"
             className="w-full h-full object-cover"
             style={{ filter: 'brightness(0.6) saturate(1.1)' }}
           >
-            <source src="/videos/webm/hero-video.webm" type="video/webm" />
+            <source src="/videos/webm/recipes-hero.webm" type="video/webm" />
             <source src="/videos/mp4/recipes-hero.mp4" type="video/mp4" />
           </video>
         )}
